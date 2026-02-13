@@ -1,0 +1,65 @@
+{
+	"Banner": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do banner"
+		},
+		"titulo": {
+		  "type": "string",
+		  "description": "Título do banner"
+		},
+		"descricao": {
+		  "type": "string",
+		  "description": "Descrição do banner"
+		},
+		"imagemDesktopUrl": {
+		  "type": "string",
+		  "format": "uri",
+		  "description": "URL da imagem para desktop"
+		},
+		"imagemMobileUrl": {
+		  "type": "string",
+		  "format": "uri",
+		  "description": "URL da imagem para dispositivos móveis"
+		},
+		"link": {
+		  "type": "string",
+		  "format": "uri",
+		  "description": "Link de destino do banner"
+		},
+		"dataInicio": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de início da exibição"
+		},
+		"dataFim": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de fim da exibição"
+		},
+		"posicao": {
+		  "type": "string",
+		  "enum": ["HOME_PRINCIPAL", "HOME_SECUNDARIO", "CATEGORIA", "LATERAL", "POPUP"],
+		  "description": "Posição do banner no site"
+		},
+		"ordem": {
+		  "type": "integer",
+		  "description": "Ordem de exibição"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["ATIVO", "INATIVO", "AGENDADO"],
+		  "description": "Status do banner"
+		},
+		"target": {
+		  "type": "string",
+		  "enum": ["_self", "_blank"],
+		  "description": "Como o link deve ser aberto"
+		}
+	  },
+	  "required": ["id", "titulo", "imagemDesktopUrl", "imagemMobileUrl", "dataInicio", "dataFim", "posicao", "status"]
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"ListaDesejos": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único da lista de desejos"
+		},
+		"clienteId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cliente"
+		},
+		"nome": {
+		  "type": "string",
+		  "description": "Nome da lista de desejos"
+		},
+		"publica": {
+		  "type": "boolean",
+		  "description": "Indica se a lista é pública ou privada"
+		},
+		"dataCriacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de criação da lista"
+		},
+		"itens": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/ItemListaDesejos"
+		  },
+		  "description": "Itens na lista de desejos"
+		}
+	  },
+	  "required": ["id", "clienteId", "nome", "publica", "dataCriacao"]
+	}
+}

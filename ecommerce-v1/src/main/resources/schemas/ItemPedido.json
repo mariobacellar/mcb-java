@@ -1,0 +1,42 @@
+{
+	"ItemPedido": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do item"
+		},
+		"pedidoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do pedido"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"quantidade": {
+		  "type": "integer",
+		  "description": "Quantidade do produto"
+		},
+		"precoUnitario": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Preço unitário no momento da compra"
+		},
+		"precoTotal": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Preço total do item (quantidade x preço unitário)"
+		},
+		"descontoUnitario": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Desconto aplicado por unidade"
+		}
+	  },
+	  "required": ["id", "pedidoId", "produtoId", "quantidade", "precoUnitario", "precoTotal"]
+	}
+}

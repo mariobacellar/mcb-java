@@ -1,0 +1,36 @@
+{
+	"ItemListaDesejos": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do item na lista"
+		},
+		"listaDesejosId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID da lista de desejos"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"dataAdicao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de adição do item à lista"
+		},
+		"observacao": {
+		  "type": "string",
+		  "description": "Observação ou nota sobre o item"
+		},
+		"prioridade": {
+		  "type": "integer",
+		  "description": "Prioridade do item na lista"
+		}
+	  },
+	  "required": ["id", "listaDesejosId", "produtoId", "dataAdicao"]
+	}
+}

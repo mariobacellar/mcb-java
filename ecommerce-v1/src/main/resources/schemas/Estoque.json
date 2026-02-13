@@ -1,0 +1,47 @@
+{
+	"Estoque": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do registro de estoque"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"deposito": {
+		  "type": "string",
+		  "description": "Identificação do depósito/armazém"
+		},
+		"quantidadeDisponivel": {
+		  "type": "integer",
+		  "description": "Quantidade disponível em estoque"
+		},
+		"quantidadeReservada": {
+		  "type": "integer",
+		  "description": "Quantidade reservada para pedidos"
+		},
+		"estoqueMinimo": {
+		  "type": "integer",
+		  "description": "Quantidade mínima para alerta"
+		},
+		"estoqueMaximo": {
+		  "type": "integer",
+		  "description": "Capacidade máxima de estoque"
+		},
+		"pontoPedido": {
+		  "type": "integer",
+		  "description": "Ponto de pedido para reposição"
+		},
+		"ultimaAtualizacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data da última atualização"
+		}
+	  },
+	  "required": ["id", "produtoId", "quantidadeDisponivel", "ultimaAtualizacao"]
+	}
+}

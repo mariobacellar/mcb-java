@@ -1,0 +1,56 @@
+{
+	"Log": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do log"
+		},
+		"tipo": {
+		  "type": "string",
+		  "enum": ["INFO", "WARNING", "ERROR", "CRITICAL", "SYSTEM"],
+		  "description": "Tipo de log"
+		},
+		"acao": {
+		  "type": "string",
+		  "description": "Ação realizada"
+		},
+		"entidade": {
+		  "type": "string",
+		  "description": "Entidade relacionada"
+		},
+		"entidadeId": {
+		  "type": "string",
+		  "description": "ID da entidade relacionada"
+		},
+		"usuarioId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Usuário que realizou a ação"
+		},
+		"ip": {
+		  "type": "string",
+		  "description": "Endereço IP"
+		},
+		"userAgent": {
+		  "type": "string",
+		  "description": "User-Agent do navegador"
+		},
+		"dataHora": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data e hora do evento"
+		},
+		"dados": {
+		  "type": "object",
+		  "description": "Dados relacionados ao evento"
+		},
+		"detalhes": {
+		  "type": "string",
+		  "description": "Detalhes adicionais"
+		}
+	  },
+	  "required": ["id", "tipo", "acao", "dataHora"]
+	}
+}

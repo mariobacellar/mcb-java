@@ -1,0 +1,59 @@
+{ 
+	"Notificacao": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único da notificação"
+		},
+		"usuarioId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do usuário"
+		},
+		"tipo": {
+		  "type": "string",
+		  "enum": ["EMAIL", "SMS", "PUSH", "INTERNA"],
+		  "description": "Tipo de notificação"
+		},
+		"titulo": {
+		  "type": "string",
+		  "description": "Título da notificação"
+		},
+		"conteudo": {
+		  "type": "string",
+		  "description": "Conteúdo da notificação"
+		},
+		"lida": {
+		  "type": "boolean",
+		  "description": "Indica se a notificação foi lida"
+		},
+		"dataEnvio": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de envio da notificação"
+		},
+		"dataLeitura": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de leitura da notificação"
+		},
+		"link": {
+		  "type": "string",
+		  "format": "uri",
+		  "description": "Link associado à notificação"
+		},
+		"entidadeId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "ID da entidade relacionada (pedido, produto, etc.)"
+		},
+		"tipoEntidade": {
+		  "type": "string",
+		  "description": "Tipo de entidade relacionada"
+		}
+	  },
+	  "required": ["id", "usuarioId", "tipo", "titulo", "conteudo", "dataEnvio", "lida"]
+	}
+}

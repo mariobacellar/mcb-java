@@ -1,0 +1,50 @@
+{
+  "Usuario": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Identificador único do usuário"
+      },
+      "nome": {
+        "type": "string",
+        "description": "Nome completo do usuário"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "description": "Email do usuário"
+      },
+      "senha": {
+        "type": "string",
+        "description": "Senha criptografada do usuário"
+      },
+      "telefone": {
+        "type": "string",
+        "description": "Número de telefone do usuário"
+      },
+      "dataCadastro": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Data de criação do cadastro"
+      },
+      "dataUltimoAcesso": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Data do último acesso"
+      },
+      "tipoUsuario": {
+        "type": "string",
+        "enum": ["CLIENTE", "ADMINISTRADOR", "VENDEDOR"],
+        "description": "Tipo de usuário no sistema"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["ATIVO", "INATIVO", "BLOQUEADO"],
+        "description": "Status atual do usuário"
+      }
+    },
+    "required": ["id", "nome", "email", "senha", "tipoUsuario", "status", "dataCadastro"]
+  }
+}

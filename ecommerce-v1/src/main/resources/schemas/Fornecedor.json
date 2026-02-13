@@ -1,0 +1,74 @@
+{
+	"Fornecedor": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do fornecedor"
+		},
+		"nome": {
+		  "type": "string",
+		  "description": "Nome do fornecedor"
+		},
+		"cnpj": {
+		  "type": "string",
+		  "description": "CNPJ do fornecedor"
+		},
+		"inscricaoEstadual": {
+		  "type": "string",
+		  "description": "Inscrição estadual"
+		},
+		"telefone": {
+		  "type": "string",
+		  "description": "Telefone de contato"
+		},
+		"email": {
+		  "type": "string",
+		  "format": "email",
+		  "description": "Email de contato"
+		},
+		"site": {
+		  "type": "string",
+		  "format": "uri",
+		  "description": "Site do fornecedor"
+		},
+		"endereco": {
+		  "$ref": "#/schemas/Endereco",
+		  "description": "Endereço do fornecedor"
+		},
+		"contatoPrincipal": {
+		  "type": "string",
+		  "description": "Nome do contato principal"
+		},
+		"contatoTelefone": {
+		  "type": "string",
+		  "description": "Telefone do contato principal"
+		},
+		"contatoEmail": {
+		  "type": "string",
+		  "format": "email",
+		  "description": "Email do contato principal"
+		},
+		"dataCadastro": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de cadastro do fornecedor"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["ATIVO", "INATIVO", "BLOQUEADO"],
+		  "description": "Status do fornecedor"
+		},
+		"produtosFornecidos": {
+		  "type": "array",
+		  "items": {
+			"type": "string",
+			"format": "uuid"
+		  },
+		  "description": "IDs dos produtos fornecidos"
+		}
+	  },
+	  "required": ["id", "nome", "cnpj", "telefone", "email", "dataCadastro", "status"]
+	}
+}

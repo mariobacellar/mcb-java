@@ -1,0 +1,38 @@
+{
+
+	"ImagemProduto": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único da imagem"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"url": {
+		  "type": "string",
+		  "format": "uri",
+		  "description": "URL da imagem"
+		},
+		"legenda": {
+		  "type": "string",
+		  "description": "Legenda da imagem"
+		},
+		"ordem": {
+		  "type": "integer",
+		  "description": "Ordem de exibição da imagem"
+		},
+		"principal": {
+		  "type": "boolean",
+		  "description": "Indica se é a imagem principal"
+		}
+	  },
+	  "required": ["id", "produtoId", "url", "ordem"]
+	}
+	
+}
+	

@@ -1,0 +1,32 @@
+server:
+  port: 8070
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # A URL do seu Keycloak, incluindo o Realm que você criou.
+          # Exemplo: http://localhost:8080/realms/sua-api-realm
+          #issuer-uri:  ${OIDC_ISSUER_URI:http://localhost:8080/realms/master}
+          issuer-uri:  http://localhost:8080/realms/master
+          # A URL que o Spring usará para buscar as chaves públicas (JWKS).
+          # Esta é a "jwks_uri" que você copiou do JSON do Keycloak.
+          # Exemplo: http://localhost:8080/realms/sua-api-realm/protocol/openid-connect/certs
+          #jwk-set-uri: ${OIDC_JWK_SET_URI:http://localhost:8080/.well-known/jwks.json}
+          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      security.protocol: ${KAFKA_SECURITY_PROTOCOL:PLAINTEXT}
+      sasl.mechanism:    ${KAFKA_SASL_MECHANISM:PLAIN}
+      sasl.jaas.config:  ${KAFKA_SASL_JAAS_CONFIG:}
+
+# Logging
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.example.kafkarestapi: DEBUG

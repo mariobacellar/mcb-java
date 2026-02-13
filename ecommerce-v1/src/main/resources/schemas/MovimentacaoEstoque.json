@@ -1,0 +1,62 @@
+{	
+	"MovimentacaoEstoque": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único da movimentação"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"tipo": {
+		  "type": "string",
+		  "enum": ["ENTRADA", "SAIDA", "AJUSTE", "RESERVA", "TRANSFERENCIA"],
+		  "description": "Tipo de movimentação"
+		},
+		"quantidade": {
+		  "type": "integer",
+		  "description": "Quantidade movimentada"
+		},
+		"motivo": {
+		  "type": "string",
+		  "description": "Motivo da movimentação"
+		},
+		"notaFiscal": {
+		  "type": "string",
+		  "description": "Número da nota fiscal (se aplicável)"
+		},
+		"pedidoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do pedido (se aplicável)"
+		},
+		"usuarioId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Usuário que realizou a movimentação"
+		},
+		"depositoOrigem": {
+		  "type": "string",
+		  "description": "Depósito de origem (transferências)"
+		},
+		"depositoDestino": {
+		  "type": "string",
+		  "description": "Depósito de destino (transferências)"
+		},
+		"dataMovimentacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data da movimentação"
+		},
+		"observacao": {
+		  "type": "string",
+		  "description": "Observações adicionais"
+		}
+	  },
+	  "required": ["id", "produtoId", "tipo", "quantidade", "dataMovimentacao", "usuarioId"]
+	}
+}

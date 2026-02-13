@@ -1,0 +1,101 @@
+{
+	"Produto": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do produto"
+		},
+		"sku": {
+		  "type": "string",
+		  "description": "Código SKU do produto"
+		},
+		"nome": {
+		  "type": "string",
+		  "description": "Nome do produto"
+		},
+		"descricao": {
+		  "type": "string",
+		  "description": "Descrição detalhada do produto"
+		},
+		"preco": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Preço atual do produto"
+		},
+		"precoOriginal": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Preço original (antes de descontos)"
+		},
+		"categoriaId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID da categoria"
+		},
+		"marcaId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID da marca"
+		},
+		"quantidadeEstoque": {
+		  "type": "integer",
+		  "description": "Quantidade disponível em estoque"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["ATIVO", "INATIVO", "ESGOTADO", "RASCUNHO"],
+		  "description": "Status atual do produto"
+		},
+		"peso": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Peso do produto em kg"
+		},
+		"dimensoes": {
+		  "type": "object",
+		  "properties": {
+			"altura": {
+			  "type": "number",
+			  "description": "Altura em cm"
+			},
+			"largura": {
+			  "type": "number",
+			  "description": "Largura em cm"
+			},
+			"profundidade": {
+			  "type": "number",
+			  "description": "Profundidade em cm"
+			}
+		  },
+		  "description": "Dimensões do produto"
+		},
+		"imagens": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/ImagemProduto"
+		  },
+		  "description": "Lista de imagens do produto"
+		},
+		"atributos": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/AtributoProduto"
+		  },
+		  "description": "Lista de atributos do produto"
+		},
+		"dataCriacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de criação do produto"
+		},
+		"dataAtualizacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data da última atualização"
+		}
+	  },
+	  "required": ["id", "sku", "nome", "preco", "categoriaId", "status", "dataCriacao"]
+	}
+}

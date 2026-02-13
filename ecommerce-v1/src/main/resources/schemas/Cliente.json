@@ -1,0 +1,56 @@
+{
+	"Cliente": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do cliente"
+		},
+		"usuarioId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do usuário"
+		},
+	"cpf": {
+	  "type": "string",
+	  "description": "CPF do cliente"
+	},
+
+
+	"dataNascimento": {
+	  "type": "string",
+	  "format": "date",
+	  "description": "Data de nascimento do cliente"
+	},
+
+
+	"genero": {
+	  "type": "string",
+	  "enum": ["MASCULINO", "FEMININO", "OUTRO", "NAO_INFORMADO"],
+	  "description": "Gênero do cliente"
+	},
+
+
+	"enderecos": {
+	  "type": "array",
+	  "items": {
+		"$ref": "#/Endereco"
+	  },
+	  "description": "Lista de endereços do cliente"
+	},
+
+
+	"cartoes": {
+	  "type": "array",
+	  "items": {
+		"$ref": "#/CartaoCredito"
+	  },
+	  "description": "Lista de cartões de crédito do cliente"
+	}
+
+
+	  },
+	  "required": ["id", "usuarioId", "cpf"]
+	}
+}

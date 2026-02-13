@@ -1,0 +1,51 @@
+{
+	"Entrega": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único da entrega"
+		},
+		"pedidoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do pedido"
+		},
+		"metodo": {
+		  "type": "string",
+		  "enum": ["SEDEX", "PAC", "TRANSPORTADORA", "RETIRADA_LOJA"],
+		  "description": "Método de entrega"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["AGUARDANDO_SEPARACAO", "EM_SEPARACAO", "ENVIADO", "EM_TRANSPORTE", "ENTREGUE"],
+		  "description": "Status da entrega"
+		},
+		"dataEnvio": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de envio"
+		},
+		"dataEntregaPrevista": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data prevista para entrega"
+		},
+		"dataEntregaReal": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data da entrega real"
+		},
+		"codigoRastreamento": {
+		  "type": "string",
+		  "description": "Código de rastreamento"
+		},
+		"transportadora": {
+		  "type": "string",
+		  "description": "Nome da transportadora"
+		}
+	  },
+	  "required": ["id", "pedidoId", "metodo", "status", "dataEntregaPrevista"]
+    }
+}

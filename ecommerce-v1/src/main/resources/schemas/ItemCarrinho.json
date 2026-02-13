@@ -1,0 +1,42 @@
+{
+	"ItemCarrinho": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do item no carrinho"
+		},
+		"carrinhoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do carrinho"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"quantidade": {
+		  "type": "integer",
+		  "description": "Quantidade do produto"
+		},
+		"precoUnitario": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Preço unitário atual do produto"
+		},
+		"precoTotal": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Preço total do item (quantidade x preço unitário)"
+		},
+		"dataCriacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de adição do item ao carrinho"
+		}
+	  },
+	  "required": ["id", "carrinhoId", "produtoId", "quantidade", "precoUnitario", "precoTotal", "dataCriacao"]
+	}
+}

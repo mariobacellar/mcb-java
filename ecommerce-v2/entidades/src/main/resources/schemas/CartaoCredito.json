@@ -1,0 +1,39 @@
+{
+	"CartaoCredito": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do cartão"
+		},
+		"clienteId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cliente"
+		},
+		"numero": {
+		  "type": "string",
+		  "description": "Número do cartão (mascarado para segurança)"
+		},
+		"nomeTitular": {
+		  "type": "string",
+		  "description": "Nome do titular do cartão"
+		},
+		"bandeira": {
+		  "type": "string",
+		  "enum": ["VISA", "MASTERCARD", "AMEX", "ELO", "HIPERCARD", "OUTRO"],
+		  "description": "Bandeira do cartão"
+		},
+		"dataValidade": {
+		  "type": "string",
+		  "format": "date",
+		  "description": "Data de validade do cartão"
+		},
+		"principal": {
+		  "type": "boolean",
+		  "description": "Indica se é o cartão principal"
+		}
+	  },
+	  "required": ["id", "clienteId", "numero", "nomeTitular", "bandeira", "dataValidade"]
+	}

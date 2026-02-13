@@ -1,0 +1,1438 @@
+{
+	
+  "schemas": {
+	  
+		"Usuario": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do usuário"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome completo do usuário"
+			},
+			"email": {
+			  "type": "string",
+			  "format": "email",
+			  "description": "Email do usuário"
+			},
+			"senha": {
+			  "type": "string",
+			  "description": "Senha criptografada do usuário"
+			},
+			"telefone": {
+			  "type": "string",
+			  "description": "Número de telefone do usuário"
+			},
+			"dataCadastro": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de criação do cadastro"
+			},
+			"dataUltimoAcesso": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data do último acesso"
+			},
+			"tipoUsuario": {
+			  "type": "string",
+			  "enum": ["CLIENTE", "ADMINISTRADOR", "VENDEDOR"],
+			  "description": "Tipo de usuário no sistema"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO", "BLOQUEADO"],
+			  "description": "Status atual do usuário"
+			}
+		  },
+		  "required": ["id", "nome", "email", "senha", "tipoUsuario", "status", "dataCadastro"]
+		},
+
+		"Cliente": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do cliente"
+			},
+			"usuarioId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do usuário"
+			},
+			"cpf": {
+			  "type": "string",
+			  "description": "CPF do cliente"
+			},
+			"dataNascimento": {
+			  "type": "string",
+			  "format": "date",
+			  "description": "Data de nascimento do cliente"
+			},
+			"genero": {
+			  "type": "string",
+			  "enum": ["MASCULINO", "FEMININO", "OUTRO", "NAO_INFORMADO"],
+			  "description": "Gênero do cliente"
+			},
+			"enderecos": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/Endereco"
+			  },
+			  "description": "Lista de endereços do cliente"
+			},
+			"cartoes": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/CartaoCredito"
+			  },
+			  "description": "Lista de cartões de crédito do cliente"
+			}
+		  },
+		  "required": ["id", "usuarioId", "cpf"]
+		},
+
+		"Endereco": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do endereço"
+			},
+			"clienteId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cliente"
+			},
+			"cep": {
+			  "type": "string",
+			  "description": "CEP do endereço"
+			},
+			"logradouro": {
+			  "type": "string",
+			  "description": "Logradouro (rua, avenida, etc)"
+			},
+			"numero": {
+			  "type": "string",
+			  "description": "Número do endereço"
+			},
+			"complemento": {
+			  "type": "string",
+			  "description": "Complemento do endereço"
+			},
+			"bairro": {
+			  "type": "string",
+			  "description": "Bairro"
+			},
+			"cidade": {
+			  "type": "string",
+			  "description": "Cidade"
+			},
+			"estado": {
+			  "type": "string",
+			  "description": "Estado (UF)"
+			},
+			"pais": {
+			  "type": "string",
+			  "description": "País"
+			},
+			"tipoEndereco": {
+			  "type": "string",
+			  "enum": ["RESIDENCIAL", "COMERCIAL", "ENTREGA", "COBRANCA"],
+			  "description": "Tipo do endereço"
+			},
+			"principal": {
+			  "type": "boolean",
+			  "description": "Indica se é o endereço principal"
+			}
+		  },
+		  "required": ["id", "clienteId", "cep", "logradouro", "numero", "bairro", "cidade", "estado", "tipoEndereco"]
+		},
+
+		"CartaoCredito": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do cartão"
+			},
+			"clienteId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cliente"
+			},
+			"numero": {
+			  "type": "string",
+			  "description": "Número do cartão (mascarado para segurança)"
+			},
+			"nomeTitular": {
+			  "type": "string",
+			  "description": "Nome do titular do cartão"
+			},
+			"bandeira": {
+			  "type": "string",
+			  "enum": ["VISA", "MASTERCARD", "AMEX", "ELO", "HIPERCARD", "OUTRO"],
+			  "description": "Bandeira do cartão"
+			},
+			"dataValidade": {
+			  "type": "string",
+			  "format": "date",
+			  "description": "Data de validade do cartão"
+			},
+			"principal": {
+			  "type": "boolean",
+			  "description": "Indica se é o cartão principal"
+			}
+		  },
+		  "required": ["id", "clienteId", "numero", "nomeTitular", "bandeira", "dataValidade"]
+		},
+
+		"Produto": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do produto"
+			},
+			"sku": {
+			  "type": "string",
+			  "description": "Código SKU do produto"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome do produto"
+			},
+			"descricao": {
+			  "type": "string",
+			  "description": "Descrição detalhada do produto"
+			},
+			"preco": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Preço atual do produto"
+			},
+			"precoOriginal": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Preço original (antes de descontos)"
+			},
+			"categoriaId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID da categoria"
+			},
+			"marcaId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID da marca"
+			},
+			"quantidadeEstoque": {
+			  "type": "integer",
+			  "description": "Quantidade disponível em estoque"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO", "ESGOTADO", "RASCUNHO"],
+			  "description": "Status atual do produto"
+			},
+			"peso": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Peso do produto em kg"
+			},
+			"dimensoes": {
+			  "type": "object",
+			  "properties": {
+				"altura": {
+				  "type": "number",
+				  "description": "Altura em cm"
+				},
+				"largura": {
+				  "type": "number",
+				  "description": "Largura em cm"
+				},
+				"profundidade": {
+				  "type": "number",
+				  "description": "Profundidade em cm"
+				}
+			  },
+			  "description": "Dimensões do produto"
+			},
+			"imagens": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/ImagemProduto"
+			  },
+			  "description": "Lista de imagens do produto"
+			},
+			"atributos": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/AtributoProduto"
+			  },
+			  "description": "Lista de atributos do produto"
+			},
+			"dataCriacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de criação do produto"
+			},
+			"dataAtualizacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data da última atualização"
+			}
+		  },
+		  "required": ["id", "sku", "nome", "preco", "categoriaId", "status", "dataCriacao"]
+		},
+
+		"ImagemProduto": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da imagem"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"url": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL da imagem"
+			},
+			"legenda": {
+			  "type": "string",
+			  "description": "Legenda da imagem"
+			},
+			"ordem": {
+			  "type": "integer",
+			  "description": "Ordem de exibição da imagem"
+			},
+			"principal": {
+			  "type": "boolean",
+			  "description": "Indica se é a imagem principal"
+			}
+		  },
+		  "required": ["id", "produtoId", "url", "ordem"]
+		},
+
+		"AtributoProduto": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do atributo"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome do atributo"
+			},
+			"valor": {
+			  "type": "string",
+			  "description": "Valor do atributo"
+			}
+		  },
+		  "required": ["id", "produtoId", "nome", "valor"]
+		},
+
+		"Categoria": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da categoria"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome da categoria"
+			},
+			"descricao": {
+			  "type": "string",
+			  "description": "Descrição da categoria"
+			},
+			"categoriaPaiId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência à categoria pai (para subcategorias)"
+			},
+			"nivel": {
+			  "type": "integer",
+			  "description": "Nível da categoria na hierarquia"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO"],
+			  "description": "Status da categoria"
+			},
+			"imagemUrl": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL da imagem da categoria"
+			},
+			"ordem": {
+			  "type": "integer",
+			  "description": "Ordem de exibição da categoria"
+			}
+		  },
+		  "required": ["id", "nome", "status"]
+		},
+
+		"Marca": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da marca"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome da marca"
+			},
+			"descricao": {
+			  "type": "string",
+			  "description": "Descrição da marca"
+			},
+			"logoUrl": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL do logo da marca"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO"],
+			  "description": "Status da marca"
+			}
+		  },
+		  "required": ["id", "nome", "status"]
+		},
+
+		"Pedido": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do pedido"
+			},
+			"numero": {
+			  "type": "string",
+			  "description": "Número de referência do pedido"
+			},
+			"clienteId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cliente"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["AGUARDANDO_PAGAMENTO", "PAGAMENTO_APROVADO", "EM_SEPARACAO", "ENVIADO", "ENTREGUE", "CANCELADO"],
+			  "description": "Status atual do pedido"
+			},
+			"dataCriacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de criação do pedido"
+			},
+			"dataAtualizacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data da última atualização"
+			},
+			"valorTotal": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor total do pedido"
+			},
+			"valorFrete": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor do frete"
+			},
+			"valorDesconto": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor de desconto aplicado"
+			},
+			"cupomDescontoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cupom de desconto"
+			},
+			"enderecoEntregaId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do endereço de entrega"
+			},
+			"itens": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/ItemPedido"
+			  },
+			  "description": "Itens do pedido"
+			},
+			"pagamento": {
+			  "$ref": "#/schemas/Pagamento",
+			  "description": "Informações de pagamento"
+			},
+			"entrega": {
+			  "$ref": "#/schemas/Entrega",
+			  "description": "Informações de entrega"
+			}
+		  },
+		  "required": ["id", "numero", "clienteId", "status", "dataCriacao", "valorTotal", "enderecoEntregaId"]
+		},
+
+		"ItemPedido": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do item"
+			},
+			"pedidoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do pedido"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"quantidade": {
+			  "type": "integer",
+			  "description": "Quantidade do produto"
+			},
+			"precoUnitario": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Preço unitário no momento da compra"
+			},
+			"precoTotal": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Preço total do item (quantidade x preço unitário)"
+			},
+			"descontoUnitario": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Desconto aplicado por unidade"
+			}
+		  },
+		  "required": ["id", "pedidoId", "produtoId", "quantidade", "precoUnitario", "precoTotal"]
+		},
+
+		"Pagamento": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do pagamento"
+			},
+			"pedidoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do pedido"
+			},
+			"metodo": {
+			  "type": "string",
+			  "enum": ["CARTAO_CREDITO", "BOLETO", "PIX", "TRANSFERENCIA", "PAYPAL"],
+			  "description": "Método de pagamento"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["PENDENTE", "APROVADO", "RECUSADO", "ESTORNADO", "CANCELADO"],
+			  "description": "Status do pagamento"
+			},
+			"valor": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor do pagamento"
+			},
+			"dataPagamento": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data do pagamento"
+			},
+			"cartaoCreditoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cartão de crédito"
+			},
+			"codigoAutorizacao": {
+			  "type": "string",
+			  "description": "Código de autorização do pagamento"
+			},
+			"linkBoleto": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "Link para o boleto"
+			},
+			"codigoPix": {
+			  "type": "string",
+			  "description": "Código PIX para pagamento"
+			},
+			"parcelas": {
+			  "type": "integer",
+			  "description": "Número de parcelas (para cartão de crédito)"
+			}
+		  },
+		  "required": ["id", "pedidoId", "metodo", "status", "valor"]
+		},
+
+		"Entrega": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da entrega"
+			},
+			"pedidoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do pedido"
+			},
+			"metodo": {
+			  "type": "string",
+			  "enum": ["SEDEX", "PAC", "TRANSPORTADORA", "RETIRADA_LOJA"],
+			  "description": "Método de entrega"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["AGUARDANDO_SEPARACAO", "EM_SEPARACAO", "ENVIADO", "EM_TRANSPORTE", "ENTREGUE"],
+			  "description": "Status da entrega"
+			},
+			"dataEnvio": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de envio"
+			},
+			"dataEntregaPrevista": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data prevista para entrega"
+			},
+			"dataEntregaReal": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data da entrega real"
+			},
+			"codigoRastreamento": {
+			  "type": "string",
+			  "description": "Código de rastreamento"
+			},
+			"transportadora": {
+			  "type": "string",
+			  "description": "Nome da transportadora"
+			}
+		  },
+		  "required": ["id", "pedidoId", "metodo", "status", "dataEntregaPrevista"]
+		},
+
+		"CupomDesconto": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do cupom"
+			},
+			"codigo": {
+			  "type": "string",
+			  "description": "Código do cupom"
+			},
+			"descricao": {
+			  "type": "string",
+			  "description": "Descrição do cupom"
+			},
+			"tipoDesconto": {
+			  "type": "string",
+			  "enum": ["PERCENTUAL", "VALOR_FIXO", "FRETE_GRATIS"],
+			  "description": "Tipo de desconto oferecido"
+			},
+			"valor": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor do desconto (percentual ou fixo)"
+			},
+			"valorMinimoPedido": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor mínimo do pedido para aplicar o cupom"
+			},
+			"dataInicio": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de início da validade"
+			},
+			"dataFim": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de fim da validade"
+			},
+			"quantidadeMaxima": {
+			  "type": "integer",
+			  "description": "Quantidade máxima de uso"
+			},
+			"quantidadeUsada": {
+			  "type": "integer",
+			  "description": "Quantidade já utilizada"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO", "EXPIRADO"],
+			  "description": "Status do cupom"
+			},
+			"produtosAplicaveis": {
+			  "type": "array",
+			  "items": {
+				"type": "string",
+				"format": "uuid"
+			  },
+			  "description": "Lista de IDs de produtos aplicáveis ao desconto"
+			},
+			"categoriasAplicaveis": {
+			  "type": "array",
+			  "items": {
+				"type": "string",
+				"format": "uuid"
+			  },
+			  "description": "Lista de IDs de categorias aplicáveis ao desconto"
+			}
+		  },
+		  "required": ["id", "codigo", "tipoDesconto", "valor", "dataInicio", "dataFim", "status"]
+		},
+
+		"Avaliacao": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da avaliação"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"clienteId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cliente"
+			},
+			"pedidoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do pedido"
+			},
+			"titulo": {
+			  "type": "string",
+			  "description": "Título da avaliação"
+			},
+			"comentario": {
+			  "type": "string",
+			  "description": "Comentário da avaliação"
+			},
+			"classificacao": {
+			  "type": "integer",
+			  "minimum": 1,
+			  "maximum": 5,
+			  "description": "Classificação (1-5 estrelas)"
+			},
+			"dataCriacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de criação da avaliação"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["PENDENTE", "APROVADA", "REJEITADA"],
+			  "description": "Status da avaliação"
+			},
+			"imagens": {
+			  "type": "array",
+			  "items": {
+				"type": "string",
+				"format": "uri"
+			  },
+			  "description": "URLs de imagens anexadas à avaliação"
+			}
+		  },
+		  "required": ["id", "produtoId", "clienteId", "classificacao", "dataCriacao", "status"]
+		},
+
+		"Carrinho": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do carrinho"
+			},
+			"clienteId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cliente (se autenticado)"
+			},
+			"sessionId": {
+			  "type": "string",
+			  "description": "ID da sessão (para carrinhos de usuários não autenticados)"
+			},
+			"dataCriacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de criação do carrinho"
+			},
+			"dataAtualizacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data da última atualização"
+			},
+			"itens": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/ItemCarrinho"
+			  },
+			  "description": "Itens no carrinho"
+			},
+			"valorTotal": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor total dos itens no carrinho"
+			},
+			"cupomDescontoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cupom de desconto aplicado"
+			},
+			"valorDesconto": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Valor do desconto aplicado"
+			}
+		  },
+		  "required": ["id", "dataCriacao", "dataAtualizacao", "valorTotal"]
+		},
+
+		"ItemCarrinho": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do item no carrinho"
+			},
+			"carrinhoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do carrinho"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"quantidade": {
+			  "type": "integer",
+			  "description": "Quantidade do produto"
+			},
+			"precoUnitario": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Preço unitário atual do produto"
+			},
+			"precoTotal": {
+			  "type": "number",
+			  "format": "double",
+			  "description": "Preço total do item (quantidade x preço unitário)"
+			},
+			"dataCriacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de adição do item ao carrinho"
+			}
+		  },
+		  "required": ["id", "carrinhoId", "produtoId", "quantidade", "precoUnitario", "precoTotal", "dataCriacao"]
+		},
+
+		"ListaDesejos": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da lista de desejos"
+			},
+			"clienteId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do cliente"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome da lista de desejos"
+			},
+			"publica": {
+			  "type": "boolean",
+			  "description": "Indica se a lista é pública ou privada"
+			},
+			"dataCriacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de criação da lista"
+			},
+			"itens": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/schemas/ItemListaDesejos"
+			  },
+			  "description": "Itens na lista de desejos"
+			}
+		  },
+		  "required": ["id", "clienteId", "nome", "publica", "dataCriacao"]
+		},
+
+		"ItemListaDesejos": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do item na lista"
+			},
+			"listaDesejosId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID da lista de desejos"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"dataAdicao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de adição do item à lista"
+			},
+			"observacao": {
+			  "type": "string",
+			  "description": "Observação ou nota sobre o item"
+			},
+			"prioridade": {
+			  "type": "integer",
+			  "description": "Prioridade do item na lista"
+			}
+		  },
+		  "required": ["id", "listaDesejosId", "produtoId", "dataAdicao"]
+		},
+	 
+		"Notificacao": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da notificação"
+			},
+			"usuarioId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do usuário"
+			},
+			"tipo": {
+			  "type": "string",
+			  "enum": ["EMAIL", "SMS", "PUSH", "INTERNA"],
+			  "description": "Tipo de notificação"
+			},
+			"titulo": {
+			  "type": "string",
+			  "description": "Título da notificação"
+			},
+			"conteudo": {
+			  "type": "string",
+			  "description": "Conteúdo da notificação"
+			},
+			"lida": {
+			  "type": "boolean",
+			  "description": "Indica se a notificação foi lida"
+			},
+			"dataEnvio": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de envio da notificação"
+			},
+			"dataLeitura": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de leitura da notificação"
+			},
+			"link": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "Link associado à notificação"
+			},
+			"entidadeId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "ID da entidade relacionada (pedido, produto, etc.)"
+			},
+			"tipoEntidade": {
+			  "type": "string",
+			  "description": "Tipo de entidade relacionada"
+			}
+		  },
+		  "required": ["id", "usuarioId", "tipo", "titulo", "conteudo", "dataEnvio", "lida"]
+		},
+
+		"ConfiguracaoLoja": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da configuração"
+			},
+			"nomeEmpresa": {
+			  "type": "string",
+			  "description": "Nome da empresa/loja"
+			},
+			"cnpj": {
+			  "type": "string",
+			  "description": "CNPJ da empresa"
+			},
+			"email": {
+			  "type": "string",
+			  "format": "email",
+			  "description": "Email de contato principal"
+			},
+			"telefone": {
+			  "type": "string",
+			  "description": "Telefone de contato principal"
+			},
+			"endereco": {
+			  "$ref": "#/schemas/Endereco",
+			  "description": "Endereço da empresa"
+			},
+			"logoUrl": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL do logo da loja"
+			},
+			"faviconUrl": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL do favicon do site"
+			},
+			"corPrincipal": {
+			  "type": "string",
+			  "description": "Cor principal (hex)"
+			},
+			"corSecundaria": {
+			  "type": "string",
+			  "description": "Cor secundária (hex)"
+			},
+			"moeda": {
+			  "type": "string",
+			  "description": "Moeda utilizada (BRL, USD, etc.)"
+			},
+			"metasTags": {
+			  "type": "object",
+			  "description": "Meta tags para SEO"
+			},
+			"redesSociais": {
+			  "type": "object",
+			  "properties": {
+				"facebook": {
+				  "type": "string",
+				  "format": "uri"
+				},
+				"instagram": {
+				  "type": "string",
+				  "format": "uri"
+				},
+				"twitter": {
+				  "type": "string",
+				  "format": "uri"
+				},
+				"youtube": {
+				  "type": "string",
+				  "format": "uri"
+				}
+			  },
+			  "description": "Links para redes sociais"
+			}
+		  },
+		  "required": ["id", "nomeEmpresa", "cnpj", "email", "telefone"]
+		},
+
+		"Banner": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do banner"
+			},
+			"titulo": {
+			  "type": "string",
+			  "description": "Título do banner"
+			},
+			"descricao": {
+			  "type": "string",
+			  "description": "Descrição do banner"
+			},
+			"imagemDesktopUrl": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL da imagem para desktop"
+			},
+			"imagemMobileUrl": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "URL da imagem para dispositivos móveis"
+			},
+			"link": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "Link de destino do banner"
+			},
+			"dataInicio": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de início da exibição"
+			},
+			"dataFim": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de fim da exibição"
+			},
+			"posicao": {
+			  "type": "string",
+			  "enum": ["HOME_PRINCIPAL", "HOME_SECUNDARIO", "CATEGORIA", "LATERAL", "POPUP"],
+			  "description": "Posição do banner no site"
+			},
+			"ordem": {
+			  "type": "integer",
+			  "description": "Ordem de exibição"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO", "AGENDADO"],
+			  "description": "Status do banner"
+			},
+			"target": {
+			  "type": "string",
+			  "enum": ["_self", "_blank"],
+			  "description": "Como o link deve ser aberto"
+			}
+		  },
+		  "required": ["id", "titulo", "imagemDesktopUrl", "imagemMobileUrl", "dataInicio", "dataFim", "posicao", "status"]
+		},
+
+		"Newsletter": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do cadastro"
+			},
+			"email": {
+			  "type": "string",
+			  "format": "email",
+			  "description": "Email cadastrado"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome da pessoa"
+			},
+			"dataCadastro": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data do cadastro"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO", "CANCELADO"],
+			  "description": "Status da inscrição"
+			},
+			"origem": {
+			  "type": "string",
+			  "description": "Origem do cadastro (rodapé, popup, etc.)"
+			},
+			"ultimoEnvio": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data do último envio"
+			},
+			"preferencias": {
+			  "type": "array",
+			  "items": {
+				"type": "string"
+			  },
+			  "description": "Preferências de conteúdo"
+			}
+		  },
+		  "required": ["id", "email", "dataCadastro", "status"]
+		},
+
+		"Estoque": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do registro de estoque"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"deposito": {
+			  "type": "string",
+			  "description": "Identificação do depósito/armazém"
+			},
+			"quantidadeDisponivel": {
+			  "type": "integer",
+			  "description": "Quantidade disponível em estoque"
+			},
+			"quantidadeReservada": {
+			  "type": "integer",
+			  "description": "Quantidade reservada para pedidos"
+			},
+			"estoqueMinimo": {
+			  "type": "integer",
+			  "description": "Quantidade mínima para alerta"
+			},
+			"estoqueMaximo": {
+			  "type": "integer",
+			  "description": "Capacidade máxima de estoque"
+			},
+			"pontoPedido": {
+			  "type": "integer",
+			  "description": "Ponto de pedido para reposição"
+			},
+			"ultimaAtualizacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data da última atualização"
+			}
+		  },
+		  "required": ["id", "produtoId", "quantidadeDisponivel", "ultimaAtualizacao"]
+		},
+
+		"MovimentacaoEstoque": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único da movimentação"
+			},
+			"produtoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do produto"
+			},
+			"tipo": {
+			  "type": "string",
+			  "enum": ["ENTRADA", "SAIDA", "AJUSTE", "RESERVA", "TRANSFERENCIA"],
+			  "description": "Tipo de movimentação"
+			},
+			"quantidade": {
+			  "type": "integer",
+			  "description": "Quantidade movimentada"
+			},
+			"motivo": {
+			  "type": "string",
+			  "description": "Motivo da movimentação"
+			},
+			"notaFiscal": {
+			  "type": "string",
+			  "description": "Número da nota fiscal (se aplicável)"
+			},
+			"pedidoId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Referência ao ID do pedido (se aplicável)"
+			},
+			"usuarioId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Usuário que realizou a movimentação"
+			},
+			"depositoOrigem": {
+			  "type": "string",
+			  "description": "Depósito de origem (transferências)"
+			},
+			"depositoDestino": {
+			  "type": "string",
+			  "description": "Depósito de destino (transferências)"
+			},
+			"dataMovimentacao": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data da movimentação"
+			},
+			"observacao": {
+			  "type": "string",
+			  "description": "Observações adicionais"
+			}
+		  },
+		  "required": ["id", "produtoId", "tipo", "quantidade", "dataMovimentacao", "usuarioId"]
+		},
+
+		"Fornecedor": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do fornecedor"
+			},
+			"nome": {
+			  "type": "string",
+			  "description": "Nome do fornecedor"
+			},
+			"cnpj": {
+			  "type": "string",
+			  "description": "CNPJ do fornecedor"
+			},
+			"inscricaoEstadual": {
+			  "type": "string",
+			  "description": "Inscrição estadual"
+			},
+			"telefone": {
+			  "type": "string",
+			  "description": "Telefone de contato"
+			},
+			"email": {
+			  "type": "string",
+			  "format": "email",
+			  "description": "Email de contato"
+			},
+			"site": {
+			  "type": "string",
+			  "format": "uri",
+			  "description": "Site do fornecedor"
+			},
+			"endereco": {
+			  "$ref": "#/schemas/Endereco",
+			  "description": "Endereço do fornecedor"
+			},
+			"contatoPrincipal": {
+			  "type": "string",
+			  "description": "Nome do contato principal"
+			},
+			"contatoTelefone": {
+			  "type": "string",
+			  "description": "Telefone do contato principal"
+			},
+			"contatoEmail": {
+			  "type": "string",
+			  "format": "email",
+			  "description": "Email do contato principal"
+			},
+			"dataCadastro": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data de cadastro do fornecedor"
+			},
+			"status": {
+			  "type": "string",
+			  "enum": ["ATIVO", "INATIVO", "BLOQUEADO"],
+			  "description": "Status do fornecedor"
+			},
+			"produtosFornecidos": {
+			  "type": "array",
+			  "items": {
+				"type": "string",
+				"format": "uuid"
+			  },
+			  "description": "IDs dos produtos fornecidos"
+			}
+		  },
+		  "required": ["id", "nome", "cnpj", "telefone", "email", "dataCadastro", "status"]
+		},
+
+		"Log": {
+		  "type": "object",
+		  "properties": {
+			"id": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Identificador único do log"
+			},
+			"tipo": {
+			  "type": "string",
+			  "enum": ["INFO", "WARNING", "ERROR", "CRITICAL", "SYSTEM"],
+			  "description": "Tipo de log"
+			},
+			"acao": {
+			  "type": "string",
+			  "description": "Ação realizada"
+			},
+			"entidade": {
+			  "type": "string",
+			  "description": "Entidade relacionada"
+			},
+			"entidadeId": {
+			  "type": "string",
+			  "description": "ID da entidade relacionada"
+			},
+			"usuarioId": {
+			  "type": "string",
+			  "format": "uuid",
+			  "description": "Usuário que realizou a ação"
+			},
+			"ip": {
+			  "type": "string",
+			  "description": "Endereço IP"
+			},
+			"userAgent": {
+			  "type": "string",
+			  "description": "User-Agent do navegador"
+			},
+			"dataHora": {
+			  "type": "string",
+			  "format": "date-time",
+			  "description": "Data e hora do evento"
+			},
+			"dados": {
+			  "type": "object",
+			  "description": "Dados relacionados ao evento"
+			},
+			"detalhes": {
+			  "type": "string",
+			  "description": "Detalhes adicionais"
+			}
+		  },
+		  "required": ["id", "tipo", "acao", "dataHora"]
+		}
+  }
+}

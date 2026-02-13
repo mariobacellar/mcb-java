@@ -1,0 +1,60 @@
+{	
+	"Avaliacao": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único da avaliação"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"clienteId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cliente"
+		},
+		"pedidoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do pedido"
+		},
+		"titulo": {
+		  "type": "string",
+		  "description": "Título da avaliação"
+		},
+		"comentario": {
+		  "type": "string",
+		  "description": "Comentário da avaliação"
+		},
+		"classificacao": {
+		  "type": "integer",
+		  "minimum": 1,
+		  "maximum": 5,
+		  "description": "Classificação (1-5 estrelas)"
+		},
+		"dataCriacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de criação da avaliação"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["PENDENTE", "APROVADA", "REJEITADA"],
+		  "description": "Status da avaliação"
+		},
+		"imagens": {
+		  "type": "array",
+		  "items": {
+			"type": "string",
+			"format": "uri"
+		  },
+		  "description": "URLs de imagens anexadas à avaliação"
+		}
+	  },
+	  "required": ["id", "produtoId", "clienteId", "classificacao", "dataCriacao", "status"]
+	}
+}

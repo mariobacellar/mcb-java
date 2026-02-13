@@ -1,0 +1,26 @@
+{
+	"AtributoProduto": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do atributo"
+		},
+		"produtoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do produto"
+		},
+		"nome": {
+		  "type": "string",
+		  "description": "Nome do atributo"
+		},
+		"valor": {
+		  "type": "string",
+		  "description": "Valor do atributo"
+		}
+	  },
+	  "required": ["id", "produtoId", "nome", "valor"]
+	}
+}

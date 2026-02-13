@@ -1,0 +1,54 @@
+{
+	"Carrinho": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do carrinho"
+		},
+		"clienteId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cliente (se autenticado)"
+		},
+		"sessionId": {
+		  "type": "string",
+		  "description": "ID da sessão (para carrinhos de usuários não autenticados)"
+		},
+		"dataCriacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de criação do carrinho"
+		},
+		"dataAtualizacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data da última atualização"
+		},
+		"itens": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/schemas/ItemCarrinho"
+		  },
+		  "description": "Itens no carrinho"
+		},
+		"valorTotal": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor total dos itens no carrinho"
+		},
+		"cupomDescontoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cupom de desconto aplicado"
+		},
+		"valorDesconto": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor do desconto aplicado"
+		}
+	  },
+	  "required": ["id", "dataCriacao", "dataAtualizacao", "valorTotal"]
+	}
+}

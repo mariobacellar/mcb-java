@@ -1,0 +1,77 @@
+{
+	"Pedido": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do pedido"
+		},
+		"numero": {
+		  "type": "string",
+		  "description": "Número de referência do pedido"
+		},
+		"clienteId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cliente"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["AGUARDANDO_PAGAMENTO", "PAGAMENTO_APROVADO", "EM_SEPARACAO", "ENVIADO", "ENTREGUE", "CANCELADO"],
+		  "description": "Status atual do pedido"
+		},
+		"dataCriacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de criação do pedido"
+		},
+		"dataAtualizacao": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data da última atualização"
+		},
+		"valorTotal": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor total do pedido"
+		},
+		"valorFrete": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor do frete"
+		},
+		"valorDesconto": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor de desconto aplicado"
+		},
+		"cupomDescontoId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do cupom de desconto"
+		},
+		"enderecoEntregaId": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Referência ao ID do endereço de entrega"
+		},
+		"itens": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/ItemPedido"
+		  },
+		  "description": "Itens do pedido"
+		},
+		"pagamento": {
+		  "$ref": "#/Pagamento",
+		  "description": "Informações de pagamento"
+		},
+		"entrega": {
+		  "$ref": "#/Entrega",
+		  "description": "Informações de entrega"
+		}
+	  },
+	  "required": ["id", "numero", "clienteId", "status", "dataCriacao", "valorTotal", "enderecoEntregaId"]
+	}
+}

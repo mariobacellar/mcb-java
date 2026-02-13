@@ -1,0 +1,75 @@
+{
+	"CupomDesconto": {
+	  "type": "object",
+	  "properties": {
+		"id": {
+		  "type": "string",
+		  "format": "uuid",
+		  "description": "Identificador único do cupom"
+		},
+		"codigo": {
+		  "type": "string",
+		  "description": "Código do cupom"
+		},
+		"descricao": {
+		  "type": "string",
+		  "description": "Descrição do cupom"
+		},
+		"tipoDesconto": {
+		  "type": "string",
+		  "enum": ["PERCENTUAL", "VALOR_FIXO", "FRETE_GRATIS"],
+		  "description": "Tipo de desconto oferecido"
+		},
+		"valor": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor do desconto (percentual ou fixo)"
+		},
+		"valorMinimoPedido": {
+		  "type": "number",
+		  "format": "double",
+		  "description": "Valor mínimo do pedido para aplicar o cupom"
+		},
+		"dataInicio": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de início da validade"
+		},
+		"dataFim": {
+		  "type": "string",
+		  "format": "date-time",
+		  "description": "Data de fim da validade"
+		},
+		"quantidadeMaxima": {
+		  "type": "integer",
+		  "description": "Quantidade máxima de uso"
+		},
+		"quantidadeUsada": {
+		  "type": "integer",
+		  "description": "Quantidade já utilizada"
+		},
+		"status": {
+		  "type": "string",
+		  "enum": ["ATIVO", "INATIVO", "EXPIRADO"],
+		  "description": "Status do cupom"
+		},
+		"produtosAplicaveis": {
+		  "type": "array",
+		  "items": {
+			"type": "string",
+			"format": "uuid"
+		  },
+		  "description": "Lista de IDs de produtos aplicáveis ao desconto"
+		},
+		"categoriasAplicaveis": {
+		  "type": "array",
+		  "items": {
+			"type": "string",
+			"format": "uuid"
+		  },
+		  "description": "Lista de IDs de categorias aplicáveis ao desconto"
+		}
+	  },
+	  "required": ["id", "codigo", "tipoDesconto", "valor", "dataInicio", "dataFim", "status"]
+	}
+}

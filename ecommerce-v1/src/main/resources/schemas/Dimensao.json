@@ -1,0 +1,20 @@
+{
+    "Dimensao": {
+        "type": "object",
+        "properties": {
+                "altura": {
+                    "type": "double",
+                    "description": "Altrua do pacote"
+                },
+                "largura": {
+                    "type": "double",
+                    "description": "Largura do pacote"
+                },
+                "profundidade": {
+                    "type": "double",
+                    "description": "Profundidade do pacote"
+                }
+            } 
+    }   
+
+}
